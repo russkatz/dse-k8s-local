@@ -36,11 +36,15 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 kubectl get pods --all-namespaces
 ```
 
-Join other Kubernets Nodes (Run on the other Ubuntu VMs as root)
-* `kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
+* Join other Kubernets Nodes (Run on the other Ubuntu VMs as root)
+```
+kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
 
-Check nodes on Kubernetes Master:
-* `kubectl get nodes`
+* Check nodes on Kubernetes Master:
+```
+kubectl get nodes
+```
 
 * Enable master to run pods:
 ```
