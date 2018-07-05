@@ -19,7 +19,11 @@ service docker start
 ```
 
 Setup Kubernetes Master on first VM
-* Copy the JOIN line outputted by this command! (as root): `kubeadm init`
+* Copy the JOIN line outputted by this command! (as root): 
+```
+kubeadm init
+```
+
 * To start using your cluster, you need to run this (as a regular user):
 ```
   mkdir -p $HOME/.kube
@@ -93,7 +97,7 @@ kubectl get nodes
           values:
           - ip-172-31-9-98 # Update this line to your kubernetes node name
 ```
-* Create `datastax` Kubernetes server: 
+* Create `datastax` Kubernetes service: 
 ```
 kubectl create service nodeport datastax --tcp=9042:9042
 ```
