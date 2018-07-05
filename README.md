@@ -34,6 +34,10 @@ Check nodes on Kubernetes Master:
 * `kubectl get nodes`
 * Enable master to run pods: `kubectl taint nodes --all node-role.kubernetes.io/master-`
 
-# Setup DSE Docker
+# Setup DSE Docker Image (as root on master)
 
-* git clone
+* `git clone https://github.com/datastax/docker-images`
+* Update yaml files as required in `config-templates/DSE/6.0.0/`
+* Build local DSE docker image: 
+`./gradlew buildServerImage -PserverVersion=6.0 -PopscenterVersion=6.5 -PstudioVersion=6.0 -PdownloadUsername=<your_DataStax_Acedemy_username> -PdownloadPassword=<your_DataStax_Acedemy_passwd>`
+`./gradlew buildImages -PdownloadUsername=<your_DataStax_Acedemy_username> -PdownloadPassword=<your_DataStax_Acedemy_passwd>`
