@@ -54,7 +54,8 @@ Run on each Kubernetes node:
 Configure storage class
 
 * Download git repo: `git clone https://github.com/russkatz/kuber-dse`
-* Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files.
+* Get your kubernetes node's names: `kubectl get nodes`
+* Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files (This example is for three kubernetes nodes).
 ```
 ...
   nodeAffinity:
@@ -66,3 +67,54 @@ Configure storage class
           values:
           - ip-172-31-9-98 # Update this line to your kubernetes node name
 ```
+* Create `datastax` Kubernetes server: 
+`kubectl create service nodeport datastax --tcp=9042:9042`
+
+* Create `datastax-storage` storage class
+`kubectl create -f datastax-storage.yaml`
+
+* Add all of the persistent disks to the storage class:
+```
+kubectl create -f datastax-node0-pv0.yaml
+kubectl create -f datastax-node0-pv1.yaml
+kubectl create -f datastax-node1-pv0.yaml
+kubectl create -f datastax-node1-pv1.yaml
+kubectl create -f datastax-node2-pv0.yaml
+kubectl create -f datastax-node2-pv1.yaml
+```
+* Check disks
+`kubectl get persistentvolume`
+
+# Deploy DSE Cluster
+
+* Create kubernetes statefulset application for datastax: 
+`kubectl create -f datastax-statefulset.yaml`
+
+* Check on status of statefulset application
+`kubectl describe statefulset.apps/datastax`
+
+* Check on status of first datastax pod:
+`kubectl describe pod datastax-0`
+
+* Check persistent volume was bound
+`kubectl get persistentvolume`
+
+* Wait a few minutes for the pods to start and DSE to come up
+`kubectl describe statefulset.apps/datastax`
+
+* Check DSE cluster
+`kubectl exec datastax-0 nodetool status`
+
+* Run CQLSH
+`kubectl exec -it datastax-0 cqlsh`
+
+* Local terminal access to pod
+`kubectl exec -it datastax-0 -- /bin/bash`
+
+* Scale down (Note how the DSE cluster behaves..)
+`kubectl scale statefulsets datastax --replicas=2`
+
+* Scale up (Note how the DSE cluster behaves..)
+`kubectl scale statefulsets datastax --replicas=3`
+
+
