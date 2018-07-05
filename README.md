@@ -26,8 +26,15 @@ Setup Kubernetes Master on first VM
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-* Install K8s networking: `kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
-* Check installation: `kubectl get pods --all-namespaces`
+* Install K8s networking: 
+```
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+```
+
+* Check installation: 
+```
+kubectl get pods --all-namespaces
+```
 
 Join other Kubernets Nodes (Run on the other Ubuntu VMs as root)
 * `kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
@@ -36,7 +43,9 @@ Check nodes on Kubernetes Master:
 * `kubectl get nodes`
 
 * Enable master to run pods:
-`kubectl taint nodes --all node-role.kubernetes.io/master-`
+```
+kubectl taint nodes --all node-role.kubernetes.io/master-`
+```
 
 # Setup DSE Docker Image (as root on master)
 This requires a free account from academy.datastax.com
@@ -59,10 +68,14 @@ Run on each Kubernetes node, these will be our persistent disk "mount points":
 Configure storage class
 
 * Download git repo: 
- `git clone https://github.com/russkatz/kuber-dse`
+```
+git clone https://github.com/russkatz/kuber-dse
+```
 
 * Get your kubernetes node's names: 
- `kubectl get nodes`
+```
+kubectl get nodes
+```
 
 * Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files.
 ```
@@ -77,10 +90,14 @@ Configure storage class
           - ip-172-31-9-98 # Update this line to your kubernetes node name
 ```
 * Create `datastax` Kubernetes server: 
- `kubectl create service nodeport datastax --tcp=9042:9042`
+```
+kubectl create service nodeport datastax --tcp=9042:9042
+```
 
-* Create `datastax-storage` storage class
- `kubectl create -f datastax-storage.yaml`
+* Create `datastax-storage` storage class:
+```
+kubectl create -f datastax-storage.yaml
+```
 
 * Add all of the persistent disks to the storage class:
 ```
@@ -92,42 +109,65 @@ kubectl create -f datastax-node2-pv0.yaml
 kubectl create -f datastax-node2-pv1.yaml
 ```
 * Check disks, You should see six volmues Available:
-`kubectl get persistentvolume`
+```
+kubectl get persistentvolume
+```
 
 # Deploy DSE Cluster
 
 * Create kubernetes statefulset application for datastax: 
- `kubectl create -f datastax-statefulset.yaml`
+```
+kubectl create -f datastax-statefulset.yaml
+```
 
 * Check on status of statefulset application
- `kubectl describe statefulset.apps/datastax`
+```
+kubectl describe statefulset.apps/datastax
+```
 
 * Check on status of first datastax pod:
- `kubectl describe pod datastax-0`
+```
+kubectl describe pod datastax-0
+```
 
-* Check persistent volume was bound
-`kubectl get persistentvolume`
+* Check persistent volume was bound:
+```
+kubectl get persistentvolume
+```
 
-* Wait a few minutes for the pods to start and DSE to come up
-`kubectl describe statefulset.apps/datastax`
+* Wait a few minutes for the pods to start and DSE to come up:
+```
+kubectl describe statefulset.apps/datastax```
 
-* Check DSE cluster
-`kubectl exec datastax-0 nodetool status`
+* Check DSE cluster:
+```
+kubectl exec datastax-0 nodetool status
+```
 
-* Run CQLSH
-`kubectl exec -it datastax-0 cqlsh`
+* Run CQLSH:
+```
+kubectl exec -it datastax-0 cqlsh
+```
 
-* Local terminal access to pod
-`kubectl exec -it datastax-0 -- /bin/bash`
+* Local terminal access to pod:
+```
+kubectl exec -it datastax-0 -- /bin/bash
+```
 
-* Scale down (Note how the DSE cluster behaves..)
-`kubectl scale statefulsets datastax --replicas=2`
+* Scale down (Note how the DSE cluster behaves..):
+```
+kubectl scale statefulsets datastax --replicas=2
+```
 
-* Scale up (Note how the DSE cluster behaves..)
-`kubectl scale statefulsets datastax --replicas=3`
+* Scale up (Note how the DSE cluster behaves..):
+```
+kubectl scale statefulsets datastax --replicas=3
+```
 
 * Get the port to connec to cqlsh directly through the master:
-`kubectl get service datastax`
+```
+kubectl get service datastax
+```
 
 * Note the port listed after 9042. In the example below this is 32731 (yours will be different):
 ```
@@ -136,6 +176,8 @@ datastax   NodePort   10.98.203.24   <none>        9042:32731/TCP   1h
 ```
 
 * Connect with a local copy of cqlsh:
-`cqlsh <ip of kubernetes master> <port from above>`
+```
+cqlsh <ip of kubernetes master> <port from above>
+```
 
 
