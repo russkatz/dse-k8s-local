@@ -43,3 +43,15 @@ Download and configure DSE docker image:
 Build local DSE docker image:
 * `./gradlew buildServerImage -PserverVersion=6.0 -PopscenterVersion=6.5 -PstudioVersion=6.0 -PdownloadUsername=<your_DataStax_Acedemy_username> -PdownloadPassword=<your_DataStax_Acedemy_passwd>`
 * `./gradlew buildImages -PdownloadUsername=<your_DataStax_Acedemy_username> -PdownloadPassword=<your_DataStax_Acedemy_passwd>`
+
+# Setup Kubernetes persistent storage
+For this demo we will be using normal directories for our "persistent disks". Typically you woud use mount points for physical local disks, or a local disk devices directly. We will be simulating two persistent disks per Kubernetes node.
+
+Run on each Kubernetes node:
+* `mkdir /mnt/disk0`
+* 'mkdir /mnt/disk1`
+
+Configure storage class
+
+* Download git repo: `git clone https://github.com/russkatz/kuber-dse`
+* Update `values:` in `datastax-statefulset-*.yaml` files
