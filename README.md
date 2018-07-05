@@ -91,7 +91,7 @@ kubectl create -f datastax-node1-pv1.yaml
 kubectl create -f datastax-node2-pv0.yaml
 kubectl create -f datastax-node2-pv1.yaml
 ```
-* Check disks
+* Check disks, You should see six volmues Available:
 `kubectl get persistentvolume`
 
 # Deploy DSE Cluster
@@ -125,5 +125,17 @@ kubectl create -f datastax-node2-pv1.yaml
 
 * Scale up (Note how the DSE cluster behaves..)
 `kubectl scale statefulsets datastax --replicas=3`
+
+* Get the port to connec to cqlsh directly through the master:
+`kubectl get service datastax`
+
+* Note the port listed after 9042. In the example below this is 32731 (yours will be different):
+```
+NAME       TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+datastax   NodePort   10.98.203.24   <none>        9042:32731/TCP   1h
+```
+
+* Connect with a local copy of cqlsh:
+`cqlsh <ip of kubernetes master> <port from above>`
 
 
