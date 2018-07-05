@@ -59,10 +59,10 @@ Run on each Kubernetes node, these will be our persistent disk "mount points":
 Configure storage class
 
 * Download git repo: 
-`git clone https://github.com/russkatz/kuber-dse`
+ `git clone https://github.com/russkatz/kuber-dse`
 
 * Get your kubernetes node's names: 
-`kubectl get nodes`
+ `kubectl get nodes`
 
 * Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files.
 ```
@@ -77,10 +77,10 @@ Configure storage class
           - ip-172-31-9-98 # Update this line to your kubernetes node name
 ```
 * Create `datastax` Kubernetes server: 
-`kubectl create service nodeport datastax --tcp=9042:9042`
+ `kubectl create service nodeport datastax --tcp=9042:9042`
 
 * Create `datastax-storage` storage class
-`kubectl create -f datastax-storage.yaml`
+ `kubectl create -f datastax-storage.yaml`
 
 * Add all of the persistent disks to the storage class:
 ```
@@ -97,13 +97,13 @@ kubectl create -f datastax-node2-pv1.yaml
 # Deploy DSE Cluster
 
 * Create kubernetes statefulset application for datastax: 
-`kubectl create -f datastax-statefulset.yaml`
+ `kubectl create -f datastax-statefulset.yaml`
 
 * Check on status of statefulset application
-`kubectl describe statefulset.apps/datastax`
+ `kubectl describe statefulset.apps/datastax`
 
 * Check on status of first datastax pod:
-`kubectl describe pod datastax-0`
+ `kubectl describe pod datastax-0`
 
 * Check persistent volume was bound
 `kubectl get persistentvolume`
