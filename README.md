@@ -54,4 +54,14 @@ Run on each Kubernetes node:
 Configure storage class
 
 * Download git repo: `git clone https://github.com/russkatz/kuber-dse`
-* Update `values:` in `datastax-statefulset-*.yaml` files
+* Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files.
+```
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-9-98 # Update this line to your kubernetes node name
+```
