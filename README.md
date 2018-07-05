@@ -32,3 +32,8 @@ Join other Kubernets Nodes (Run on the other Ubuntu VMs)
 
 Check nodes on Kubernetes Master:
 * `kubectl get nodes`
+* Enable master to run pods: `kubectl taint nodes --all node-role.kubernetes.io/master-`
+
+# Setup DSE Docker
+
+* git clone
