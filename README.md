@@ -1,5 +1,5 @@
-# kuber-dse
-This demo shows how to run a DSE cluster on Kubernetes using statefulsets with persistant local storage. As of this writing using local storage with statefulsets is in BETA. This is not intended for production use. 
+# DSE on Kubernetes with Local Persistent Storage
+This demo shows how to run a DSE cluster on Kubernetes using statefulsets with local persistant storage. As of this writing using local storage with statefulsets is in BETA. This is not intended for production use. 
 
 Install 3 Ubuntu servers/VMs
 
