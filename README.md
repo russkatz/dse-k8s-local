@@ -137,7 +137,8 @@ kubectl get persistentvolume
 
 * Wait a few minutes for the pods to start and DSE to come up:
 ```
-kubectl describe statefulset.apps/datastax```
+kubectl describe statefulset.apps/datastax
+```
 
 * Check DSE cluster:
 ```
