@@ -56,6 +56,7 @@ Configure storage class
 * Download git repo: `git clone https://github.com/russkatz/kuber-dse`
 * Update nodeAffinity's value to match your node names in `datastax-nodeX-pvX.yaml` files. Each kubernetes node will have two pv yaml files.
 ```
+...
   nodeAffinity:
     required:
       nodeSelectorTerms:
