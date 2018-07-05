@@ -31,4 +31,4 @@ Join other Kubernets Nodes (Run on the other Ubuntu VMs)
 * `kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
 Check nodes on Kubernetes Master:
-`kubectl get nodes`
+* `kubectl get nodes`
