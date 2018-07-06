@@ -7,7 +7,7 @@ spec:
     storage: 10Gi
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: datastax-storage
   local:
     path: /mnt/disk0

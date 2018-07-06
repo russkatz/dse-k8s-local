@@ -32,6 +32,10 @@ spec:
           requests:
             cpu: "1"
             memory: "128Mi"
+        lifecycle:
+          preStop: 
+            exec:
+              command: ["/opt/dse/bin/nodetool","decommission"]
         env:
         - name: DS_LICENSE
           value: accept
