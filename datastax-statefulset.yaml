@@ -25,6 +25,7 @@ spec:
                 values:
                 - datastax
             topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 7200
       containers:
       - name: datastax
         image: datastax/dse-server
@@ -33,9 +34,12 @@ spec:
             cpu: "1"
             memory: "128Mi"
         lifecycle:
-          preStop: 
+          preStop:
             exec:
-              command: ["/opt/dse/bin/nodetool","decommission"]
+              command: 
+              - /opt/dse/bin/nodetool
+              - decommission
+              - -f
         env:
         - name: DS_LICENSE
           value: accept

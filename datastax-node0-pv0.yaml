@@ -18,4 +18,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - ip-172-31-9-98
+          - ip-172.31.1.178
