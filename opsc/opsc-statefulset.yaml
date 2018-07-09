@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: opscenter
+spec:
+  serviceName: "opscenter"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: opscenter
+    spec:
+      containers:
+        - name: opscenter
+          image: datastax/dse-opscenter
+          resources:
+            requests:
+              cpu: "0"
+              memory: "128Mi"
+          env:
+          - name: DS_LICENSE
+            value: accept
+          ports:
+          - containerPort: 8888
+            name: opsc-gui-port
+          - containerPort: 61620
+            name: port-61620

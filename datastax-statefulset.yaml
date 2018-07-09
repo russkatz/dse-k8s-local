@@ -34,6 +34,10 @@ spec:
             cpu: "0"
             memory: "128Mi"
         lifecycle:
+          preStart:
+            exec:
+              command: 
+              - /opt/agent/bin/datastax-agent
           preStop:
             exec:
               command: 

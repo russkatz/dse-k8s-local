@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opscenter
+  labels:
+    app: opscenter
+spec:
+  ports:
+  - port: 8888
+    name: opsc-gui-port
+  - port: 61620
+    name: port-61620
+  clusterIP: None
+  selector:
+    app: opscenter
