@@ -1,4 +1,4 @@
-#DSE with local storage using portworx
+# DSE with local storage using portworx
 
 After Docker and Kubernetes is installed:
 
