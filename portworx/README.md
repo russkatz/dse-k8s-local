@@ -43,3 +43,15 @@ kubectl create -f datastax-statefulset.yaml
 ```
 kubectl exec -it datastax-0 "tail -f /var/log/cassandra/system.log"
 ```
+* UPDATE: Update entrypoint.sh to fix for Portworx (As of DSE 6.0.1 and PX 1.14).
+```
+#Add to entrypoint.sh to fix PX devices
+dir=/sys/class/block/
+jvmopts=/opt/dse/resources/cassandra/conf/jvm.options
+
+for i in `ls -1 $dir | grep pxd\!`; do
+  pre=`echo $i | awk -F\! '{print $1}'`
+  post=`echo $i | awk -F\! '{print $2}'`
+  echo -Ddse.io.$pre/$post.sector.size=4096 >> $jvmopts
+done
+```
