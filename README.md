@@ -60,7 +60,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-`
 ```
 
 # Setup DSE Docker Image (as root on master)
-This requires a free account from academy.datastax.com
+This requires a free account from academy.datastax.com and is only required if using a custom docker image with your own docker repository.
 
 Download and configure DSE docker image:
 * `git clone https://github.com/datastax/docker-images`
