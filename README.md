@@ -74,8 +74,8 @@ Build local DSE docker image:
 For this demo we will be using normal directories for our "persistent disks". Typically you would use mount points for physical local disks, or local disk devices directly for blockStorage. We will be simulating two persistent disks per Kubernetes node.
 
 Run on each Kubernetes node, these will be our persistent disk "mount points":
-* `mkdir /mnt/disk0`
-* `mkdir /mnt/disk1`
+* `sudo mkdir /mnt/disk0`
+* `sudo mkdir /mnt/disk1`
 
 Configure storage class
 
