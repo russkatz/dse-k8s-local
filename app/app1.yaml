@@ -1,0 +1,18 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: app1
+spec:
+  selector:
+    matchLabels:
+      app: app1
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+      - name: app1
+        image: 172.31.14.34:5000/demoapp:latest
+        command: ["/tmp/writeDemo.py"]
