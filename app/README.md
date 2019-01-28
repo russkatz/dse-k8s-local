@@ -17,7 +17,7 @@ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 service restart docker
 ```
 
-* Build docker app
+* Build dockerized app
 
 ```
 docker build -t demoapp:latest .
