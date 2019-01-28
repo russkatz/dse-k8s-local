@@ -4,11 +4,9 @@
 
 * Build docker app
 
- docker build -t demoapp:latest .
- 
- docker tag demoapp:latest 172.31.14.34:5000/demoapp:latest
- 
- docker push 172.31.14.34:5000/demoapp:latest
+ * docker build -t demoapp:latest .
+ * docker tag demoapp:latest 172.31.14.34:5000/demoapp:latest
+ * docker push 172.31.14.34:5000/demoapp:latest
  
 
 * Create kubernetes deployment
