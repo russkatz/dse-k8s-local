@@ -81,7 +81,7 @@ Configure storage class
 
 * Download git repo: 
 ```
-git clone https://github.com/russkatz/dse-k8s-local
+git clone https://github.com/jatin7/dse-k8s-local
 ```
 
 * Get your kubernetes node's names: 
